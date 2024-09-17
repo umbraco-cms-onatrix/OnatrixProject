@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'umbraco-cms-emmakumlien'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DF02897FE66946C881BAFB5613A329A7 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2F8F5526D6A141EA990E1658CB4A5B6D }}
           package: .
