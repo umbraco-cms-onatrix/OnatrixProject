@@ -1,0 +1,45 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
+
+
+
+@{
+    var linkHeadline = Model?.Content.Value<string>("linkHeadline");
+    var linkDescription = Model?.Content.Value<string>("linkDescription");
+    var linkSymbol = Model?.Content.Value<string>("linkSymbol");
+    var linkUrl = Model?.Content.Value<string>("linkUrl");
+    var linkBackgroundColor = Model?.Content.Value<ColorPickerValueConverter.PickedColor>("linkBackgroundColor")?.Label.ToLower() ?? null;
+    
+   
+    
+    
+    
+}
+
+@if(!string.IsNullOrEmpty(linkBackgroundColor)){
+    <a href="@linkUrl" title="@linkHeadline" class="btn btn-@linkBackgroundColor" >
+        <div class="caption-container">
+            <div>
+                <h5>@linkHeadline</h5>
+                <h6>@linkDescription</h6>
+            </div>
+            <div>
+                <i class="@linkSymbol"></i>
+            </div>
+        </div>
+    </a>
+}
+else{
+    <a href="@linkUrl" title="@linkHeadline" class="btn" ><div class="caption-container">
+            <div>
+                <h5>@linkHeadline</h5>
+                <h6>@linkDescription</h6>
+            </div>
+            <div>
+                <i class="@linkSymbol"></i>
+            </div>
+        </div>
+    </a>
+}
