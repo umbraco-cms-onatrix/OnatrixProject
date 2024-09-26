@@ -1,0 +1,45 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@inject Umbraco.Cms.Web.Common.UmbracoHelper UmbracoHelper
+
+@{
+    var rootContents = UmbracoHelper.ContentAtRoot();
+    var settings= rootContents?.FirstOrDefault(x => x.ContentType.Alias == "settingsPage") ?? null;
+    var socialMediaPlatform = settings?.Value<IEnumerable<Umbraco.Cms.Core.Models.Blocks.BlockListItem>>("socialMediaPlatform") ?? null;
+}
+
+@if(socialMediaPlatform != null){
+    <div class="social-media">
+        @foreach(var social in socialMediaPlatform){
+            var platformName = social?.Content?.Value<string>("platformName");
+            var platformAccountUrl = social?.Content?.Value<string>("platformAccountUrl") ?? "#";
+
+            switch(platformName!.ToLower()){
+                case "facebook":
+                    <a href="@platformAccountUrl" title="@platformAccountUrl" target="_blank" class="socialmedia-item"><i class="fa-brands fa-facebook-f"></i></a>
+                    break;
+
+                case "instagram":
+                    <a href="@platformAccountUrl" title="@platformAccountUrl" target="_blank" class="socialmedia-item"><i class="fa-brands fa-square-instagram"></i></a>
+                    break;
+
+                case "linked in":
+                    <a href="@platformAccountUrl" title="@platformAccountUrl" target="_blank" class="socialmedia-item"><i class="fa-brands fa-linkedin-in"></i></a>
+                    break;
+
+                case "tiktok":
+                    <a href="@platformAccountUrl" title="@platformAccountUrl" target="_blank" class="socialmedia-item"><i class="fa-brands fa-tiktok"></i></a>
+                    break;
+
+                case "x (former twitter)":
+                    <a href="@platformAccountUrl" title="@platformAccountUrl" target="_blank" class="socialmedia-item"><i class="fa-brands fa-x-twitter"></i></a>
+                    break;
+
+                case "youtube":
+                    <a href="@platformAccountUrl" title="@platformAccountUrl" target="_blank" class="socialmedia-item"><i class="fa-brands fa-youtube"></i></a>
+                    break;
+
+            }
+        }
+    </div>
+}

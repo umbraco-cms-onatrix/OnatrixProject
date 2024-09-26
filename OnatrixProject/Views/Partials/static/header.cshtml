@@ -1,0 +1,54 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@inject Umbraco.Cms.Web.Common.UmbracoHelper UmbracoHelper
+@using Umbraco.Cms.Core
+@using Umbraco.Cms.Core.Models.PublishedContent
+@using Umbraco.Cms.Core.Routing
+@using Umbraco.Extensions
+@inject IPublishedValueFallback PublishedValueFallback
+@inject IPublishedUrlProvider PublishedUrlProvider
+@{
+    var rootContents = UmbracoHelper.ContentAtRoot();
+    var settings= rootContents?.FirstOrDefault(x => x.ContentType.Alias == "settingsPage") ?? null;
+    var siteName = settings?.Value<string>("siteName") ?? "";
+    var siteLogotype = settings?.Value<IPublishedContent>("siteLogotype")?.Url() ?? null;
+
+    var selection = Model.Root().Children.Where(x => x.IsVisible(PublishedValueFallback)).ToArray(); 
+}
+<section class="nav-bar bg-light">  
+    <div class="container ">
+        <nav class="nav-contact">
+            <a class="logotype" href="/"><img src="@siteLogotype" alt="@siteName"></a>
+            <div class="topnav">
+                @if (selection?.Length > 0)
+                {
+                    
+                    @foreach (var item in selection)
+                    {
+                        <a class="@(item.IsAncestorOrSelf(Model) ? "nav-link active" : "nav-link")" href="@item.Url(PublishedUrlProvider)">@item.Name</a>
+                        
+                        
+                    }
+                    
+                }
+            </div>
+            <div class="search"> 
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+            </div>
+            <div class="dropdown">
+                <button class="btn-menu" onclick="dropdownFunction()"><i class="fa-solid fa-bars"></i></button>
+                <div class="dropdown-content" id="myDropdown">
+                    <a href="/">Home</a>
+                    <a href="/about-page">About</a>
+                    <a href="/contact-page">Contact</a>
+                    <a href="/project-page">Projects</a>
+                    <a href="/service-page">Services</a>
+                </div>
+            </div>
+            
+        </nav>
+
+    </div>
+</section>
+

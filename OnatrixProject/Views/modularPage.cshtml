@@ -8,3 +8,6 @@
 @if(Model?.Layout != null){
     @await Html.GetBlockGridHtmlAsync(Model.Layout)
 }
+@if(!string.IsNullOrEmpty(ViewBag.Title)){
+    @await Html.PartialAsync("partials/static/breadcrumb.cshtml")
+}

@@ -1,8 +1,15 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@inject Umbraco.Cms.Web.Common.UmbracoHelper UmbracoHelper
 @{
 	Layout = null;
-	var pageTitle = !string.IsNullOrEmpty(ViewBag.Title) ? $"{ViewBag.Title} | Onatrix- Financial Solucions For Your Business" : "Onatrix- Financial Solucions For Your Business";
+
+    var rootContents = UmbracoHelper.ContentAtRoot();
+    var settings= rootContents?.FirstOrDefault(x => x.ContentType.Alias == "settingsPage") ?? null;
+    var siteName = settings?.Value<string>("siteName") ?? "Onatrix";
+    var siteTagline = settings?.Value<string>("siteTagline") ?? "Financial Solucions For Your Business";
+
+	var pageTitle = !string.IsNullOrEmpty(ViewBag.Title) ? $"{ViewBag.Title} | {siteName}- {siteTagline}" : $"{siteName}- {siteTagline}";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -18,47 +25,13 @@
 </head>
 <body>
     <div class="wrapper">
+        
         <header>
-            <section class="social-header bg-primary" >
-                <div class="container">
-                    <div class="social">
-                        <h6>Klarabergsviadukten 90, 111 64 Stockholm</h6>
-                        <div class="social-media">
-                            <div class="vl"></div>
-                            <a href="#" class="facebook-icon"><i class="fa-brands fa-facebook-f"></i></a>
-                            <div class="vl"></div>
-                            <a href="#" class="tx-icon"><i class="fa-brands fa-x-twitter"></i></a>
-                            <div class="vl"></div>
-                            <a href="#" class="link-icon"><i class="fa-brands fa-linkedin-in"></i></a>
-                            <div class="vl"></div>
-                            <button href="#" class="btn-menu"><i class="fa-solid fa-bars"></i></button>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </section>
-            <section class="nav-bar bg-light">
-                <div class="container ">
-                    <nav class="nav-contact">
-                        <img src="/Images/Icon/Brand.svg" alt="Brand logotype">
-                        <div class="topnav">
-                            <a href="/about">About</a>
-                            <a href="/services">Services</a>
-                            <a href="/projects">Projects</a>
-                            <a href="/contact">Contact</a>
-                        </div>
-                        <a href="" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></a>
-        
-                    </nav>
-        
-                </div>
             
-
-            </section>
-
-
+            @await Html.PartialAsync("partials/static/topbar.cshtml")
+    
+            @await Html.PartialAsync("partials/static/header.cshtml")
+            
         </header>
 
         <main>
@@ -66,15 +39,7 @@
 
         </main>
 
-        <footer>
-            <section class="footer bg-dark">
-                <div class="container">
-                    <p>&copy; Onatrix. All Rights Reserved. Credits to</p> <span id="footer-highlight">Themesflat</span> 
-                </div>
-
-            </section>
-
-        </footer>
+        @await Html.PartialAsync("partials/static/footer.cshtml")
 
     </div>
     
