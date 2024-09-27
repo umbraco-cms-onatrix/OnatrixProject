@@ -1,0 +1,51 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+	Layout = "mainLayout.cshtml";
+    ViewBag.Title = Model?.Name ?? null;
+}
+
+<section class="risk-management">
+    <div class="container">
+        <div class="risk-section">
+            @* 
+            <div class="sidebar">
+                <div class="about-box">
+                    <h2>About us</h2>
+                    <img src="/Images/Home/services/image-6.svg" alt="">
+                    <p>Dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non </p>
+
+                </div>
+                <div class="help-box bg-primary">
+                    <h3>How can we help you?</h3>
+                    <p>Online support 24/7, we are here to help you.</p>
+                    <div class="help-input">
+                        <input type="text" placeholder="E-mail">
+                        <i class="fa-regular fa-envelope"></i>
+                    </div>
+                    
+                </div>
+
+            </div>
+            
+            *@
+
+            <div class="risk-content">
+                @Model.Value("pageContent")
+
+            </div>
+
+            @*
+                <form action="#">
+                    <h2>Have a question?</h2>
+                    <input class="form-text" type="text" placeholder="Name">
+                    <input class="form-email" type="email" placeholder="E-mail">
+                    <input class="form-textarea" type="textarea" placeholder="Question...">
+                    <a href="#" class="btn-primary">Submit</a>
+                </form>
+            *@
+        </div>
+
+    </div>
+
+</section>

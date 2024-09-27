@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="/css/theme.css">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
+     
     <title>@pageTitle</title>
 </head>
 <body>
@@ -35,6 +36,9 @@
         </header>
 
         <main>
+            @if(!string.IsNullOrEmpty(ViewBag.Title)){
+                @await Html.PartialAsync("partials/static/breadcrumb.cshtml")
+            }
         @RenderBody()
 
         </main>
