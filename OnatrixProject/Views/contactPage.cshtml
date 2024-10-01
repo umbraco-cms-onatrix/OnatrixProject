@@ -1,5 +1,6 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContactPage>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @{
 	Layout = "mainLayout.cshtml";
 	ViewBag.Title= Model.Value("pageTitle");
@@ -11,26 +12,8 @@
 	</div>
 	<p>Dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat</p>
 
-	<form onsubmit="handleContactFormSubmit(event)" novalidate>
-		<div class="form-input-group">
-			<label class="form-label" for="name">Name</label>
-			<input id="name" name="name" type="text" placeholder="Enter your name" class="form-input">
-			<span class="form-input-error">You must enter your name</span>
-		</div> 
-
-		<div class="form-input-group">
-			<label class="form-label" for="email">Email</label>
-			<input id="email" name="email" type="email" placeholder="Enter your email" class="form-input">
-			<span class="form-input-error">You must enter your email</span>
-		</div> 
-
-		<div class="form-input-group">
-			<label class="form-label" for="message">Message</label>
-			<textarea id="message" name="message" type="text" placeholder="Enter your message" class="form-textarea"></textarea>
-			<span class="form-input-error">You must enter a message</span>
-		</div> 
-        
-		<button type="submit" class="btn-accent">SEND</button>
+	<form id="ContactForm" onsubmit="handleContactFormSubmit(e)" novalidate>
+		@Html.GetBlockListHtml(Model.ContactForm)
 		
 	</form>
 
