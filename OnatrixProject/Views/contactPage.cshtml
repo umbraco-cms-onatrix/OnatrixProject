@@ -92,23 +92,25 @@ else{
 
 	</section>
 }
-<section class="ContactPage"> 
-<div class="container">
-   <img class="background-map" src="@backgroundMap" alt="Picture of a map">
-	<div class="form-title">
-		<h6>@formSectionHeadline</h6>
-		<h2>@headline</h2>
-		<p>@formText</p>
-	</div>
-	
+<section class="ContactSection"> 
+    <img class="background-map" src="@backgroundMap" alt="Picture of a map">
+    <div class="container">
 
-	<form id="ContactForm" onsubmit="handleContactFormSubmit(e)" novalidate>
-		@Html.GetBlockListHtml(Model.ContactForm)
-		
-	</form>
+        <div class= "form-content">
+            <div class="form-title">
+                <h6>@formSectionHeadline</h6>
+                <h2>@headline</h2>
+                <p>@formText</p>
+            </div>
+            
 
+            <form id="ContactForm" onsubmit="handleContactFormSubmit(e)" novalidate>
+                @Html.GetBlockListHtml(Model.ContactForm)
+                
+            </form>
+        </div>
 
-</div>
+    </div>
 </section>
 
 

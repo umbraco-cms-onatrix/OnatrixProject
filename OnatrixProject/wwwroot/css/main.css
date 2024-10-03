@@ -1533,6 +1533,64 @@ footer .container p {
   margin: 50px 0;
   width: 60%;
 }
+
+.ContactSection {
+  padding: 20px;
+  position: relative;
+}
+.ContactSection .background-map {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  z-index: -1;
+}
+.ContactSection .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.ContactSection .container .form-content {
+  padding: 20px;
+  width: 55%;
+  z-index: 1;
+  bottom: -20px;
+  background-color: var(--color-light);
+}
+.ContactSection .container .form-content .form-title {
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.ContactSection .container .form-content #ContactForm {
+  display: block;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.ContactSection .container .form-content #ContactForm .umb-block-list {
+  display: grid;
+  grid-template-areas: "name phone" "email select" "button button";
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+}
+.ContactSection .container .form-content #ContactForm .umb-block-list #_name {
+  grid-area: name;
+}
+.ContactSection .container .form-content #ContactForm .umb-block-list #_phone {
+  grid-area: phone;
+}
+.ContactSection .container .form-content #ContactForm .umb-block-list #_email {
+  grid-area: email;
+}
+.ContactSection .container .form-content #ContactForm .umb-block-list #_select {
+  grid-area: select;
+}
+.ContactSection .container .form-content #ContactForm .umb-block-list #_Submit {
+  grid-area: button;
+}
 .umb-block-grid__layout-container {
 	position: relative;
 	display: grid;

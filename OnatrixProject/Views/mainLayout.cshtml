@@ -39,11 +39,13 @@
             @if(!string.IsNullOrEmpty(ViewBag.Title)){
                 @await Html.PartialAsync("partials/static/breadcrumb.cshtml")
             }
-        @RenderBody()
+            @RenderBody()
 
         </main>
 
-        @await Html.PartialAsync("partials/static/footer.cshtml")
+        <footer>
+            @await Html.PartialAsync("partials/static/footer.cshtml")
+        </footer>
 
     </div>
     
