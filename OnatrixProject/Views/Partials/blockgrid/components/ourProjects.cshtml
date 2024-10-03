@@ -1,0 +1,68 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
+
+
+
+@{
+	var sectionTitle = Model?.Content.Value<string>("sectionTitle") ?? "";
+	var headline = Model?.Content.Value<string>("headline") ?? "";
+	var projectType = Model?.Content.Value<string>("projectType") ?? "";
+
+	var selection = Umbraco.Content(Guid.Parse("734609ab-2b72-43bf-a02b-32a675a2d76a"))
+    .ChildrenOfType("projectItemTemplate")
+    .Where(x => x.IsVisible());
+
+}
+
+
+
+
+
+
+
+
+<section id="project-section" class="bg-gray">
+
+	<div class="container">
+		<h6>@sectionTitle</h6>
+		<h2>@headline</h2>
+
+	</div>
+	<div class="project-slide">
+		@if(selection != null)
+		{
+
+			@foreach (var item in selection)
+			{
+				var image = item?.Value<IPublishedContent>("thumbnailImage")?.Url() ?? "";
+				<div class="project-column">
+
+					<img class="project-img" src="@image"  alt="item.name">
+					<a href="@item!.Url()">
+						<div class="caption-container">
+							<div>
+								<h5>@item!.Name</h5>
+								<h6>@projectType</h6>
+							</div>
+
+							<div>
+								<i class="fa-solid fa-chevron-right"></i>
+							</div>
+						</div>
+
+					</a>
+					
+				</div>
+			}
+
+
+				
+		}
+
+	</div>
+	
+</section>
+
+

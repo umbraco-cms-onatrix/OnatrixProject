@@ -17,21 +17,41 @@
     var sectionBackgroundImage = Model?.Content.Value<IPublishedContent>("sectionBackgroundImage")?.Url() ?? null;
 }
 
-<section id="@sectionId" class="@spacingTopClass @spacingBottomClass">
-
-    @if(!string.IsNullOrEmpty(backgroundColorClass))
-    {
-        <div class="background @backgroundColorClass">
-
+@if((!string.IsNullOrEmpty(backgroundColorClass) && !string.IsNullOrEmpty(sectionBackgroundImage)))
+{
+    <section id="@sectionId" class="@spacingTopClass @spacingBottomClass background @backgroundColorClass">
+        <img class="background-image" src="@sectionBackgroundImage" alt="@sectionTitle background image"/>
+        <div class="container @centerContentClass">
+            @await Html.GetBlockGridItemAreasHtmlAsync(Model)
         </div>
-    }
-
-    <div class="container @centerContentClass">
-        @if(!string.IsNullOrEmpty(sectionBackgroundImage))
-        {
+    </section>
+}
+else if((!string.IsNullOrEmpty(backgroundColorClass) || !string.IsNullOrEmpty(sectionBackgroundImage)))
+{
+        @if(!string.IsNullOrEmpty(backgroundColorClass))
+    {
+    <section id="@sectionId" class="@spacingTopClass @spacingBottomClass background @backgroundColorClass">
+        <div class="container @centerContentClass">
+            @await Html.GetBlockGridItemAreasHtmlAsync(Model)
+        </div>
+    </section>
+    } 
+    @if(!string.IsNullOrEmpty(sectionBackgroundImage))
+    {
+        <section id="@sectionId" class="@spacingTopClass @spacingBottomClass">
             <img class="background-image" src="@sectionBackgroundImage" alt="@sectionTitle background image"/>
-        }
-        
+            @await Html.GetBlockGridItemAreasHtmlAsync(Model)
+        </section>
+    }
+}
+   
+else{
+    <section id="@sectionId" class="@spacingTopClass @spacingBottomClass">
+        <div class="container @centerContentClass">
         @await Html.GetBlockGridItemAreasHtmlAsync(Model)
-    </div>
-</section>
+        </div>
+    </section> 
+}
+
+
+        

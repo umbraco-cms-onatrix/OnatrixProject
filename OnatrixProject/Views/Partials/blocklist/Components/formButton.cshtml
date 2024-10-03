@@ -7,9 +7,9 @@
     var buttonText = Model?.Content.Value<string>("buttonText");
     var buttonType = Model?.Content.Value<string>("buttonType");
     var buttonColorLabel = Model?.Content.Value<ColorPickerValueConverter.PickedColor>("buttonColor")?.Label.ToLower() ?? null;
-    var buttonColorClass = (!string.IsNullOrEmpty(buttonColorLabel) && buttonColorLabel != "none") ? $"bg-{buttonColorLabel}" : "";
+    var buttonColorClass = (!string.IsNullOrEmpty(buttonColorLabel) && buttonColorLabel != "none") ? $"btn-{buttonColorLabel}" : "";
 
 }
-<div id="_@buttonText" class="form-input-group">
-    <button type="@buttonType" class=$"btn btn-{@buttonColorClass}">@buttonText</button>
+<div id="_@buttonText" class="form-input-group form-button">
+    <button type="@buttonType" class="btn @buttonColorClass">@buttonText</button>
 </div>

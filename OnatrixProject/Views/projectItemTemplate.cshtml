@@ -5,33 +5,75 @@
 @{
 	Layout = "mainLayout.cshtml";
     ViewBag.Title = Model?.Name ?? null;
-
-    var imageSideBar = Model?.Value<IPublishedContent>("imageSideBar")?.Url() ?? "";
+    var sideBarHeadline = Model?.Value<string>("sideBarHeadline") ?? "";
+    var tagsHeadline = Model?.Value<string>("tagsHeadline") ?? "";
+    var tagLinks = Model?.Value<string>("tagLinks") ?? "";
 
     var sectionHeadline = Model?.Value<string>("sectionHeadline") ?? "";
 	var image = Model?.Value<IPublishedContent>("sectionImage")?.Url() ?? null;
 	var backgroundImage = Model?.Value<IPublishedContent>("sectionBackgroundImage")?.Url() ?? null;
 
 		
-	var address = Model?.Value<string>("officeLocation")?? "Klarabergsviadukten 90, 111 52 Stockholm";
+	var address = Model?.Value<string>("officeLocation") ?? "Klarabergsviadukten 90, 111 52 Stockholm";
 	var phone = Model?.Value<string>("officePhoneNumber") ?? "+46 8 123 456 75";
 	var email = Model?.Value<string>("officeEmail") ?? "sales@onatrix.com";
 		
 
 	var backgroundColorLabel = Model?.Value<ColorPickerValueConverter.PickedColor>("sectionBackgroundColor")?.Label.ToLower() ?? null;
     var backgroundColorClass = (!string.IsNullOrEmpty(backgroundColorLabel) && backgroundColorLabel != "none") ? $"bg-{backgroundColorLabel}" : "";
+
+    var selection = Umbraco.Content(Guid.Parse("734609ab-2b72-43bf-a02b-32a675a2d76a"))!.ChildrenOfType("projectItemTemplate")!.Where(x => x.IsVisible());
 }
 
-
-<section class="service-details">
+<section class="project-details">
     <div class="container">
-        <div class="service-items">
+        <div class="project-items">
 
-        <div class="sidebar">
-                <div class="about-box">
-                    <h2>About us</h2>
-                    <img src="@imageSideBar" alt="">
-                    <p>Dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non </p>
+
+            <div class="project-content">
+                @Model.Value("pageContent")
+
+            </div>
+
+            <div class="sidebar">
+                <div class="project-list">
+                    <h2>@sideBarHeadline</h2>
+
+                    @if(selection != null){
+                        @foreach (var item in selection)
+                        {
+                            var thumbnailImage = item?.Value<IPublishedContent>("thumbnailImage")?.Url() ?? "";
+                            var preamble = item?.Value<string>("preamble") ?? "";
+
+                        <div class="caption-container">
+                            <img class="project-img" src="@thumbnailImage" alt="@item.Name" >
+                            <div>
+                                <h4>@item!.Name</h4>
+                                <div class="date">
+                                    <i class="fa-solid fa-calendar-days"></i>
+                                    <p class="date-text">June 15, 2024</p>
+                                </div>
+                                <p class="box-info">@preamble</p>
+                            <a href="@item!.Url()">Read more <i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                        }
+                    }
+                    
+                    
+                
+
+                <h2>Tags</h2>
+                <div class="tags">
+                    <a class="tag-link">Report</a>
+                    <a class="tag-link">Busines plans</a>
+                    <a class="tag-link">Insights</a>
+                    <a class="tag-link">Business</a>
+                    <a class="tag-link">App</a>
+                    <a class="tag-link">Project</a>
+                    <a class="tag-link">Finance</a>
+                    <a class="tag-link">Pricing</a>
+                    
 
                 </div>
                 <div class="help-box bg-primary">
@@ -43,11 +85,6 @@
                     </div>
                     
                 </div>
-
-            </div>
-
-            <div class="service-content">
-                @Model.Value("pageContent")
 
             </div>
 
@@ -123,3 +160,6 @@ else{
 
 	</section>
 }
+
+
+                    

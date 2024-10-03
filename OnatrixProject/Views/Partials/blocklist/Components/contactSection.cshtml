@@ -1,62 +1,27 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
+
+
+
+
 @{
-	Layout = "mainLayout.cshtml";
-    ViewBag.Title = Model?.Name ?? null;
-
-    var imageSideBar = Model?.Value<IPublishedContent>("imageSideBar")?.Url() ?? "";
-
-    var sectionHeadline = Model?.Value<string>("sectionHeadline") ?? "";
-	var image = Model?.Value<IPublishedContent>("sectionImage")?.Url() ?? null;
-	var backgroundImage = Model?.Value<IPublishedContent>("sectionBackgroundImage")?.Url() ?? null;
+	var sectionHeadline = Model?.Content.Value<string>("sectionHeadline") ?? "";
+	var image = Model?.Content.Value<IPublishedContent>("sectionImage")?.Url() ?? null;
+	var backgroundImage = Model?.Content.Value<IPublishedContent>("sectionBackgroundImage")?.Url() ?? null;
 
 		
-	var address = Model?.Value<string>("officeLocation")?? "Klarabergsviadukten 90, 111 52 Stockholm";
-	var phone = Model?.Value<string>("officePhoneNumber") ?? "+46 8 123 456 75";
-	var email = Model?.Value<string>("officeEmail") ?? "sales@onatrix.com";
+	var address = Model?.Content.Value<string>("officeLocation") ?? "Klarabergsviadukten 90, 111 52 Stockholm";
+	var phone = Model?.Content.Value<string>("officePhoneNumber") ?? "+46 8 123 456 75";
+	var email = Model?.Content.Value<string>("officeEmail") ?? "sales@onatrix.com";
 		
 
-	var backgroundColorLabel = Model?.Value<ColorPickerValueConverter.PickedColor>("sectionBackgroundColor")?.Label.ToLower() ?? null;
+	var backgroundColorLabel = Model?.Content.Value<ColorPickerValueConverter.PickedColor>("sectionBackgroundColor")?.Label.ToLower() ?? null;
     var backgroundColorClass = (!string.IsNullOrEmpty(backgroundColorLabel) && backgroundColorLabel != "none") ? $"bg-{backgroundColorLabel}" : "";
+
 }
 
-
-<section class="service-details">
-    <div class="container">
-        <div class="service-items">
-
-        <div class="sidebar">
-                <div class="about-box">
-                    <h2>About us</h2>
-                    <img src="@imageSideBar" alt="">
-                    <p>Dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non </p>
-
-                </div>
-                <div class="help-box bg-primary">
-                    <h3>How can we help you?</h3>
-                    <p>Online support 24/7, we are here to help you.</p>
-                    <div class="help-input">
-                        <input type="text" placeholder="E-mail">
-                        <i class="fa-regular fa-envelope"></i>
-                    </div>
-                    
-                </div>
-
-            </div>
-
-            <div class="service-content">
-                @Model.Value("pageContent")
-
-            </div>
-
-
-        </div>
-
-    </div>
-
-</section>
 
 @if(!string.IsNullOrEmpty(backgroundColorClass)){
 

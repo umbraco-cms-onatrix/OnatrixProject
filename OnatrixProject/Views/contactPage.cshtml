@@ -1,16 +1,106 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContactPage>;
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
+
 @{
 	Layout = "mainLayout.cshtml";
 	ViewBag.Title= Model.Value("pageTitle");
+
+	var headline = Model?.Value<string>("headline") ?? "";
+	var formSectionHeadline = Model?.Value<string>("formSectionHeadline") ?? "";
+	var formText = Model?.Value<string>("formText") ?? "";
+
+    var sectionHeadline = Model?.Value<string>("sectionHeadline") ?? "";
+	var image = Model?.Value<IPublishedContent>("sectionImage")?.Url() ?? null;
+	var backgroundImage = Model?.Value<IPublishedContent>("sectionBackgroundImage")?.Url() ?? null;
+
+		
+	var address = Model?.Value<string>("officeLocation") ?? "Klarabergsviadukten 90, 111 52 Stockholm";
+	var phone = Model?.Value<string>("officePhoneNumber") ?? "+46 8 123 456 75";
+	var email = Model?.Value<string>("officeEmail") ?? "sales@onatrix.com";
+		
+
+	var backgroundColorLabel = Model?.Value<ColorPickerValueConverter.PickedColor>("sectionBackgroundColor")?.Label.ToLower() ?? null;
+    var backgroundColorClass = (!string.IsNullOrEmpty(backgroundColorLabel) && backgroundColorLabel != "none") ? $"bg-{backgroundColorLabel}" : "";
+    
+	var backgroundMap = Model?.Value<IPublishedContent>("backgroundMap")?.Url() ?? null;
 }
 
+@if(!string.IsNullOrEmpty(backgroundColorClass)){
+
+	
+	<section class="contact-box @backgroundColorClass">
+
+		<div class="container">
+			<div class="img-grid">
+				<img class="img-back" src="@backgroundImage" alt="background-design">
+				<img class="img-front" src="@image" alt="picture of a man">
+			</div>
+
+			<div class="contact-info-box">
+				<h2>Let us know about your next project</h2>
+				<div class="contact-text">
+					<h5><i class="fa-solid fa-location-dot"></i>Office location</h5>
+					<p>@address</p>
+				</div>
+				<div class="contact-text">
+					<h5><i class="fa-solid fa-phone"></i>Phone number</h5>
+					<p>@phone</p>
+				</div>
+				<div class="contact-text">
+					<h5><i class="fa-regular fa-envelope"></i>E-mail address</h5>
+					<p>@email</p>
+				</div>
+
+
+			</div>
+
+		</div>
+
+	</section>
+
+}
+else{
+	<section class="contact-box">
+
+		<div class="container">
+			<div class="img-grid">
+				<img class="img-back" src="@image" alt="background-design">
+				<img class="img-front" src="@image" alt="picture of a man">
+			</div>
+
+			<div class="contact-info-box">
+				<h2>Let us know about your next project</h2>
+				<div class="contact-text">
+					<h5><i class="fa-solid fa-location-dot"></i>Office location</h5>
+					<p>@address</p>
+				</div>
+				<div class="contact-text">
+					<h5><i class="fa-solid fa-phone"></i>Phone number</h5>
+					<p>@phone</p>
+				</div>
+				<div class="contact-text">
+					<h5><i class="fa-regular fa-envelope"></i>E-mail address</h5>
+					<p>@email</p>
+				</div>
+
+
+			</div>
+
+		</div>
+
+	</section>
+}
+<section class="ContactPage"> 
 <div class="container">
+   <img class="background-map" src="@backgroundMap" alt="Picture of a map">
 	<div class="form-title">
-		<h3>Request a call back</h3>
+		<h6>@formSectionHeadline</h6>
+		<h2>@headline</h2>
+		<p>@formText</p>
 	</div>
-	<p>Dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat</p>
+	
 
 	<form id="ContactForm" onsubmit="handleContactFormSubmit(e)" novalidate>
 		@Html.GetBlockListHtml(Model.ContactForm)
@@ -19,3 +109,6 @@
 
 
 </div>
+</section>
+
+
