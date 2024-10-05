@@ -255,9 +255,15 @@ h6 {
 .form-input-group span .form-input-error {
   color: red;
 }
-.form-input-group #select {
+.form-input-group #support-select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+}
+.form-input-group #support-select #support {
+  margin-top: 20px;
   width: 100%;
-  color: var(--color-default);
   background-color: var(--color-light);
 }
 @media (min-width: 768px) {
@@ -1586,7 +1592,14 @@ footer .container p {
 }
 .ContactSection .container .form-content #ContactForm .umb-block-list #support-select {
   grid-area: select;
-  padding: 2px 15px 2px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+}
+.ContactSection .container .form-content #ContactForm .umb-block-list #support-select #support {
+  margin-top: 20px;
+  width: 100%;
   background-color: var(--color-light);
 }
 .ContactSection .container .form-content #ContactForm .umb-block-list #_Submit {
