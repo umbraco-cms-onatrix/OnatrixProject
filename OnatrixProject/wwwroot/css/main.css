@@ -1395,6 +1395,9 @@ footer .container p {
 .project .container .project-slide .project-column .caption-container .date i {
   padding-right: 20px;
 }
+.project .container .project-slide .project-column .caption-container .date .date-text {
+  color: var(--color-dark);
+}
 
 .project-details .container .project-items .project-content span {
   color: var(--color-primary);
