@@ -1,0 +1,22 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockGridItem>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+
+@{
+    var selectedItem = Model?.Content.Value<IEnumerable<Umbraco.Cms.Core.Models.Blocks.BlockListItem>>("formSelectType");
+}
+
+@if(selectedItem != null){
+<div class="form-input-group" id="support-select">
+    <select id="support" name="support" title="support">
+        @foreach(var item in selectedItem){
+            var value = item?.Content.Value<string>("optionValue");
+            var text = item?.Content.Value<string>("optionText");
+                <option value="@value">@text</option>
+        }
+    </select>
+</div>
+
+}
+
+                    
